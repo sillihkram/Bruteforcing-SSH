@@ -11,8 +11,8 @@ First we need some get our hands on some basic text files containing a list of c
 
 Download a list of common users & weak passwords
     
-    curl https://download.weakpass.com/wordlists/90/rockyou.txt.gz | gunzip > /tmp/passwords.txt
-    curl https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/top-usernames-shortlist.txt > /tmp/users.txt
+    curl https://github.com/sillihkram/Bruteforcing-SSH/raw/main/passwords.txt.gz | gunzip > /tmp/passwords.txt
+    curl https://github.com/sillihkram/Bruteforcing-SSH/raw/main/users.txt > /tmp/users.txt
 
 Just so you are familiar, take at the content and format of the files 
 
