@@ -98,7 +98,7 @@ Launch the brute force attack
 
 if Metasploit successfully authenitcates with a usr/pass provided in the lists you'll see a message similar to the following:
 
-`[+] 192.168.0.136:22 - Success: 'test:password'`
+`[+] 192.168.0.136:22 - Success: 'docker:password'`
 
 
 Not only did metasploit find a combination that successfully authenticates but it also left a session open. List the open sessions
@@ -119,4 +119,4 @@ Now you are connected to a shell on the target. try typing some basic shell comm
 
 connect to the target using the discovered credentials
 
-    ssh graffias.openincite.net -l test
+    ssh graffias.openincite.net -l docker
