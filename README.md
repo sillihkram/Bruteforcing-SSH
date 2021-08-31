@@ -7,7 +7,7 @@ This is a demo which will exploit SSH on a linux host. Once SSH access is gained
 Downloading Dictionary Files
 ------------
 
-First we need some get our hands on some basic text files containing a list of commonly used usernames and passwords. These links are subject to change and for the sake of the lab/demo, these dict files will likely be available from this git repo in the future
+First we need some get our hands on some basic text files containing a list of commonly used usernames and passwords. These links are subject to change and for the sake of the lab/demo it might just be easier to clone the git repo with `git clone https://github.com/sillihkram/Bruteforcing-SSH.git`.
 
 Download a list of common users & weak passwords
     
@@ -96,7 +96,8 @@ Launch the brute force attack
 
     exploit
 
-if Metasploit successfully authenitcates with a usr/pass provided in our lists you'll see a message 
+if Metasploit successfully authenitcates with a usr/pass provided in the lists you'll see a message similar to the following:
+
 `[+] 192.168.0.136:22 - Success: 'root:password'`
 
 
