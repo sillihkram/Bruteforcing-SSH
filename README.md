@@ -105,7 +105,8 @@ Not only did metasploit find a combination that successfully authenticates but i
     sessions
 
 To interact with the open session use the sessions command: `sessions -i <session id>`
-`sessions -i 1`
+
+    sessions -i 1
 
 Now you are connected to a shell on the target. try typing some basic shell commands
 
