@@ -91,7 +91,7 @@ List the options available for this module
 
 Define options for ssh_login module to launch a brute force attack against a target host
 
-    set stop_on_success
+    set stop_on_success true
     set pass_file /tmp/password.txt
     set user_file /tmp/users.txt
     set threads 10
