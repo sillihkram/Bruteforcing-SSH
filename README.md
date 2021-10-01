@@ -7,19 +7,23 @@ This is a demo which will exploit SSH on a linux host. Once SSH access is gained
 Downloading Dictionary Files
 ------------
 
-First we need some get our hands on some basic text files containing a list of commonly used usernames and passwords. These links are subject to change and for the sake of the lab/demo it might just be easier to clone the git repo with `git clone https://github.com/sillihkram/Bruteforcing-SSH.git`.
+Clone the project on your local system:
 
-Download a list of common users & weak passwords
+    git clone https://github.com/sillihkram/Bruteforcing-SSH.git
+    cd Bruteforcing-SSH/
+
+unpack and prepare the list of commonly used users & passwords
     
-    curl https://github.com/sillihkram/Bruteforcing-SSH/raw/main/passwords.txt.gz | gunzip > /tmp/passwords.txt
-    curl https://github.com/sillihkram/Bruteforcing-SSH/raw/main/users.txt > /tmp/users.txt
+    gunzip passwords.txt.gz
+    cp passwords.txt /tmp/passwords.txt 
+    cp users.txt /tmp/users.txt
 
 Just so you are familiar, take at the content and format of the files 
-
+    
+    wc -l /tmp/passwords.txt # Notice this is a long list
     head /tmp/passwords.txt
     head /tmp/users.txt
-
-
+    
 
 # Installing Metasploit
 ------------
