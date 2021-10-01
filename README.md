@@ -25,7 +25,7 @@ Just so you are familiar, take at the content and format of the files
     head /tmp/users.txt
     
 
-# Installing Metasploit
+# Installing Metasploit (RHEL, Fedora, CentOS)
 ------------
 
 Download the latest version of Metasploit Framework (OSS)
@@ -49,13 +49,18 @@ Add the `/opt/metasploit-framework/bin/` directory to our path
 
 
     PATH=/opt/metasploit-framework/bin/:$PATH
+    # you may want to make this persistant add this line to your .bash_profile
 
 
 Add Metasploit repo to our system and make sure we have the latest version.
 
     msfupdate
 
+# Installing Metasploit (Mac)
+------------
 
+    brew install metasploit
+     
 
 # Using Metasploit
 ------------
