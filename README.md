@@ -71,7 +71,7 @@ Launch the metasploit framework console
     msfconsole
 
 
-List the available exploits modules for metasploit
+List the available exploit modules for metasploit
 
 
     show exploits
