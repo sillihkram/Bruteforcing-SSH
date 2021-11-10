@@ -1,7 +1,7 @@
 # Bruteforcing-SSH
 ========
 
-This is a demo which will exploit SSH on a linux host. Once SSH access is gained, privilege escalation is used to become root. 
+This is a demo which will exploit SSH on a linux host. Once SSH access is gained, privilege escalation is used to become root. *Note* this README and demo is still under developement.
 
 
 Downloading Dictionary Files
