@@ -146,8 +146,10 @@ Let's grab a copy of the information we've collected
     
 # privilage escalation 
 ------------
+Use vim to hide our shell
 
-    
+    vim 
+    : ! /bin/bash -p
     
     
 # Protecting a host from bruteforce
