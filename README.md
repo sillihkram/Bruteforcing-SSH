@@ -169,6 +169,9 @@ Add a simple rule to iptables to drop brute force attackes after an excessive am
     itpables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --update --seconds 600 --hitcount 50 --name SSH --mask 255.255.255.255 --rsource -j SSHBFATK
     itpables -A SSHBFATK -m limit --limit 5/min -j LOG --log-prefix "SSH: Detect brute force atk! " --log-level 6
     itpables -A SSHBFATK -j DROP
+    
+There is also an anisble playbook to create the above rule:
+https://github.com/sillihkram/Bruteforcing-SSH/blob/main/mitigate-ssh-bruteforce.yaml
 
 Now run the brute force exploit again and observe the behavior
 
