@@ -1,0 +1,76 @@
+---
+- name: configure iptables to block ssh brute force
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Allow Incoming connections
+      # `iptables -P INPUT ACCEPT`
+      iptables:
+        chain: INPUT
+        policy: ACCEPT
+        state: present
+
+    - name: Allow Outgoing connections
+      # `iptables -P OUTPUT ACCEPT`
+      iptables:
+        chain: FORWARD
+        policy: ACCEPT
+        state: present
+
+    - name: Allow Forwarding connections
+      # `iptables -P FORWARD ACCEPT`
+      iptables:
+        chain: FORWARD
+        policy: ACCEPT
+        state: present
+
+    - name: Create SSH-Brute-Force rule
+      # `itpables -N SSHBFATK`
+      iptables:
+        chain: SSHBFATK
+        state: present
+
+#   - name: 
+#      # `iptables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --set --name SSH --mask 255.255.255.255 --rsource`
+#      iptables:
+#        action: append
+#        chain: INPUT
+#        protocol: tcp
+#        match: tcp
+#        destination_port: 22
+#        match: state
+#        ct_state: NEW
+#        match: recent
+#         
+
+#   - name: Drop ssh connection
+#      # iptables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --update --seconds 600 --hitcount 50 --name SSH --mask 255.255.255.255 --rsource -j SSHBFATK 
+#      iptables:
+#        action: append
+#        chain: INPUT
+#        protocol: tcp
+#        match: tcp 
+#        destination_port: 22
+#        ctstate: NEW
+#        match: recent
+#        update: yes
+#        seconds: 600
+#        hitcount: 50
+#        name: SSH
+#        mask: 255.255.255.255 
+#        jump: SSHBFATK 
+
+    - name: Log the brute force attack
+      #iptables -A SSHBFATK -m limit --limit 5/min -j LOG --log-prefix "SSH: Detect brute force atk! " --log-level 6
+      iptables:
+        action: append
+        chain: SSHBFATK
+        match: limit
+        limit: 5/min
+        jump: LOG
+        log_prefix: "SSH: Detect brute force atk! "
+        log_level: 6
+
+    - name: Drop the ssh connection that is violating the SSHBFATK rule
+      # iptables -A SSHBFATK -j DROP
