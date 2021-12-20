@@ -59,6 +59,11 @@ Add Metasploit repo to our system and make sure we have the latest version.
 # Installing Metasploit (Mac)
 ------------
 
+ Prerequisite: 
+   install homebrew:
+   
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
     brew install metasploit
      
 
