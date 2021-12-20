@@ -74,3 +74,7 @@
 
     - name: Drop the ssh connection that is violating the SSHBFATK rule
       # iptables -A SSHBFATK -j DROP
+      iptables:
+        action: append
+        chain: SSHBFATK
+        jump: drop
