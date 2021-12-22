@@ -54,11 +54,6 @@
 #        destination_port: 22
 #        ctstate: NEW
 #        match: recent
-#        update: yes
-#        seconds: 600
-#        hitcount: 50
-#        name: SSH
-#        mask: 255.255.255.255 
 #        jump: SSHBFATK 
 
     - name: Log the brute force attack
