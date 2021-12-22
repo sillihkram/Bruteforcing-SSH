@@ -31,7 +31,7 @@
         chain: SSHBFATK
         state: present
 
-#   - name: 
+#   - name: Modify rule to watch ssh connections
 #      # `iptables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --set --name SSH --mask 255.255.255.255 --rsource`
 #      iptables:
 #        action: append
@@ -44,8 +44,8 @@
 #        match: recent
 #         
 
-#   - name: Drop ssh connection
-#      # iptables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --update --seconds 600 --hitcount 50 --name SSH --mask 255.255.255.255 --rsource -j SSHBFATK 
+#   - name: Modify rule to watch the watch hitcount
+#      # iptables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --update --seconds 600 --hitcount 100 --name SSH --mask 255.255.255.255 --rsource -j SSHBFATK 
 #      iptables:
 #        action: append
 #        chain: INPUT
