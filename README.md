@@ -168,31 +168,10 @@ Now run the brute force exploit again and observe the behavior
 
 
 
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
 
+
+
+# Bonus Material
 
 
 Enumerating a Host
