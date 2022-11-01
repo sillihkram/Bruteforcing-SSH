@@ -2,11 +2,10 @@
 - name: Firewalld block SSH Brute force attempts
   hosts: all
   become: true
-
   tasks:
-
     - name: firewalld rich_rule
-      ansible.posix.firewalld:
-        rich_rule: rule service name="ssh" log prefix="ssh-brtfce:" level="warning" limit value="10/m" accept limit value="2/m"
-        permanent: yes
-        state: enabled
+      firewalld:
+        rich_rule: rule service name="ssh" log prefix="ssh-bruteforce:" level="warning" limit value="6/m" accept limit value="2/m"
+        permanent: true
+        state: disabled
+        immediate: true 
