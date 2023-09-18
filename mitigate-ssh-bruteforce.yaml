@@ -11,8 +11,9 @@
         rich_rule: "{{ item }}"
         state: enabled
       with_items:
-       - 'rule service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="2/m" accept limit value="2/m"'
-       - 'rule family="ipv4" service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="2/m" accept limit value="2/m"'
+      # reject and log new incoming ipv4 connections when more than 6 attempts per minute are made.
+       - 'rule service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="2/m" accept limit value="6/m"'
+       - 'rule family="ipv4" service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="6/m" accept limit value="6/m"'
 
 #    - name: Install iptables package
 #      yum: 
