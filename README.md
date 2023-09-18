@@ -138,7 +138,7 @@ Ensure iptables is installed:
 
     sudo yum install iptables -y
 
-Add a simple rule to iptables to drop brute force attackes after an excessive amount of authenication attempts
+Add a simple rule to iptables to drop brute force attacks after an excessive amount of authentication attempts
 
     itpables -P INPUT ACCEPT
     itpables -P FORWARD ACCEPT
@@ -149,24 +149,25 @@ Add a simple rule to iptables to drop brute force attackes after an excessive am
     itpables -A SSHBFATK -m limit --limit 5/min -j LOG --log-prefix "SSH: Detect brute force atk! " --log-level 6
     itpables -A SSHBFATK -j DROP
     
-There is also an anisble playbook to create the above iptables rule. Try downloading it and running it against the local host:
+There is also an ansible playbook to create the above ~iptables~ firewalld rich rule. Try downloading it and running it against the local host:
 
     curl -LJO https://github.com/sillihkram/Bruteforcing-SSH/raw/main/mitigate-ssh-bruteforce.yaml
  
  [RHEL7/8/9]
  
- In modern Enterprise Linux distrobutions firewalld has the ability to filter connections based on rich_rules
+ In modern Enterprise Linux distributions, firewalld has the ability to filter connections based on rich_rules
  
     sudo firewall-cmd --list-rich-rule
-    sudo firewall-cmd --perm --add-rich-rule='rule service name="ssh" log prefix="ssh-bruteforce:" level="warning" limit value="6/m" accept limit value="2/m"'
-    sudo firwall-cmd --reload
+    sudo  firewall-cmd --add-rich-rule='rule family="ipv4" service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="6/m" accept limit value="2/m"' # block ssh after 6 attempts per min are made (IPV4).
+    firewall-cmd --add-rich-rule='rule service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="6/m" accept limit value="6/m"' # block ssh connection after 6 attempts per min are made (IPv4 & IPv6).
+    sudo firewall-cmd --reload
     sudo firewall-cmd --list-rich-rule
  
 Now run the brute force exploit again and observe the behavior
 
     exploit
     
-Notice our exploit gets blocked afer 20 failed authenication attempts. 😎
+Notice our exploit gets blocked after just 6 SSH attempts per min are made. 😎
 
 
 
