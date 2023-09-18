@@ -1,40 +1,50 @@
 ---
-- name: configure iptables to block ssh brute force
+- name: configure firewalld to block ssh brute force
   hosts: localhost
   become: yes
 
   tasks:
-    - name: Install iptables package
-      yum: 
-        name: iptables
-        state: present
+  - name: FirewallD rules
+      firewalld:
+        permanent: yes
+        immediate: yes
+        rich_rule: "{{ item }}"
+        state: enabled
+      with_items:
+       - 'rule service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="2/m" accept limit value="2/m"'
+       - 'rule family="ipv4" service name="ssh" log prefix="SSH Bruteforce:" level="warning" limit value="2/m" accept limit value="2/m"'
+
+#    - name: Install iptables package
+#      yum: 
+#        name: iptables
+#        state: present
   
-    - name: Allow Incoming connections
-      # `iptables -P INPUT ACCEPT`
-      iptables:
-        chain: INPUT
-        policy: ACCEPT
-        state: present
+#    - name: Allow Incoming connections
+#      # `iptables -P INPUT ACCEPT`
+#      iptables:
+#        chain: INPUT
+#        policy: ACCEPT
+#        state: present
 
-    - name: Allow Outgoing connections
-      # `iptables -P OUTPUT ACCEPT`
-      iptables:
-        chain: FORWARD
-        policy: ACCEPT
-        state: present
+#    - name: Allow Outgoing connections
+#      # `iptables -P OUTPUT ACCEPT`
+#      iptables:
+#        chain: FORWARD
+#        policy: ACCEPT
+#        state: present
 
-    - name: Allow Forwarding connections
-      # `iptables -P FORWARD ACCEPT`
-      iptables:
-        chain: FORWARD
-        policy: ACCEPT
-        state: present
+#    - name: Allow Forwarding connections
+#      # `iptables -P FORWARD ACCEPT`
+#      iptables:
+#        chain: FORWARD
+#        policy: ACCEPT
+#        state: present
 
-    - name: Create SSH-Brute-Force rule
-      # `itpables -N SSHBFATK`
-      iptables:
-        chain: SSHBFATK
-        state: present
+#    - name: Create SSH-Brute-Force rule
+#      # `itpables -N SSHBFATK`
+#      iptables:
+#        chain: SSHBFATK
+#        state: present
 
 #   - name: Modify rule to watch ssh connections
 #      # `iptables -A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --set --name SSH --mask 255.255.255.255 --rsource`
@@ -61,20 +71,20 @@
 #        match: recent
 #        jump: SSHBFATK 
 
-    - name: Log the brute force attack
-      #iptables -A SSHBFATK -m limit --limit 5/min -j LOG --log-prefix "SSH: Detect brute force atk! " --log-level 6
-      iptables:
-        action: append
-        chain: SSHBFATK
-        match: limit
-        limit: 5/min
-        jump: LOG
-        log_prefix: "SSH: Detect brute force atk! "
-        log_level: 6
+#    - name: Log the brute force attack
+#      #iptables -A SSHBFATK -m limit --limit 5/min -j LOG --log-prefix "SSH: Detect brute force atk! " --log-level 6
+#      iptables:
+#        action: append
+#        chain: SSHBFATK
+#        match: limit
+#        limit: 5/min
+#        jump: LOG
+#        log_prefix: "SSH: Detect brute force atk! "
+#        log_level: 6
 
-    - name: Drop the ssh connection that is violating the SSHBFATK rule
-      # iptables -A SSHBFATK -j DROP
-      iptables:
-        action: append
-        chain: SSHBFATK
-        jump: drop
+#    - name: Drop the ssh connection that is violating the SSHBFATK rule
+#      # iptables -A SSHBFATK -j DROP
+#      iptables:
+#        action: append
+#        chain: SSHBFATK
+#        jump: drop
