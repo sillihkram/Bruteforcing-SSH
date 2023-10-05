@@ -5,7 +5,7 @@
   tasks:
     - name: firewalld rich_rule
       firewalld:
-        rich_rule: rule service name="ssh" log prefix="ssh-bruteforce:" level="warning" limit value="6/m" accept limit value="2/m"
+        rich_rule: rule service name="ssh" log prefix="ssh-bruteforce:" level="warning" limit value="10/m" accept limit value="10/m"
         permanent: true
         state: disabled
         immediate: true 
